@@ -1,10 +1,6 @@
 package com.example.taskreminder.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.taskreminder.data.AlarmItem
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +15,9 @@ interface AlarmDao {
 
     @Query("SELECT * FROM AlarmItem")
     fun getAlarmItems(): Flow<List<AlarmItem>>
+
+    @Query("SELECT * FROM AlarmItem WHERE active = 1")
+    fun getActiveAlarmItems(): Flow<List<AlarmItem>>
 
     @Query("SELECT * FROM AlarmItem WHERE id=:id")
     suspend fun getAlarmById(id: Int): AlarmItem

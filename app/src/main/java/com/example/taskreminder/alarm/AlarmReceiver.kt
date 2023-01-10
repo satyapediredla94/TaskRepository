@@ -21,7 +21,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (isAfterReboot(intent)) {
-
             addAllAlarmsBack()
         } else {
             val bundle = intent?.getBundleExtra(AndroidAlarmScheduler.ALARM_BUNDLE)
@@ -34,9 +33,9 @@ class AlarmReceiver : BroadcastReceiver() {
             goAsync {
                 alarmItem?.let {
                     if (isSchedule) {
-                        alarmRepository.insertAlarmItem(it)
+                        alarmRepository.insertAlarmItem(it.copy(active = true))
                     } else {
-                        alarmRepository.deleteAlarm(it)
+                        alarmRepository.insertAlarmItem(it.copy(active = false))
                     }
                 }
             }
@@ -45,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private fun addAllAlarmsBack() {
         goAsync {
-            alarmRepository.getAlarmItems().collect {
+            alarmRepository.getActiveAlarms().collect {
                 it.forEach { alarmItem ->
                     androidAlarmManager.schedule(alarmItem)
                 }

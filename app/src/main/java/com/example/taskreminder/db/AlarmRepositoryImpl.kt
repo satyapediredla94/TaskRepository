@@ -14,6 +14,8 @@ class AlarmRepositoryImpl @Inject constructor(
 
     override fun getAlarmItems(): Flow<List<AlarmItem>> = alarmDao.getAlarmItems()
 
+    override fun getActiveAlarms() = alarmDao.getActiveAlarmItems()
+
     override suspend fun getAlarmById(id: Int) = alarmDao.getAlarmById(id)
 
 }

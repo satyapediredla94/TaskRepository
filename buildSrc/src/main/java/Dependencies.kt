@@ -35,6 +35,10 @@ object ComposeDeps {
     val composeCompiler by lazy { "androidx.compose.compiler:compiler:${Compose.version}" }
 }
 
+object NavigationDeps {
+    val navigation by lazy { "androidx.navigation:navigation-compose:${Navigation.version}" }
+}
+
 object TestingDeps {
     val jUnit by lazy { "androidx.test.ext:junit:${Testing.jUnit}" }
     val espresso by lazy { "androidx.test.espresso:espresso-core:${Testing.espresso}" }

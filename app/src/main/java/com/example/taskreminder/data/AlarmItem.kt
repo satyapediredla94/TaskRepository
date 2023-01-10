@@ -13,7 +13,8 @@ data class AlarmItem(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title: String,
     val message: String,
-    val repeat: RepeatInterval
+    val repeat: RepeatInterval,
+    val active: Boolean = false
 ) : Parcelable {
 
     fun getTime(): Long {

@@ -100,6 +100,9 @@ dependencies {
     implementation(DaggerHilt.daggerHilt)
     kapt(DaggerHilt.hiltCompiler)
 
+    //Navigation
+    implementation(NavigationDeps.navigation)
+
     //Gson
     implementation(GsonParser.gson)
 

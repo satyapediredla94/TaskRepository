@@ -10,6 +10,10 @@ object ConfigData {
     const val jvm = "1.8"
 }
 
+object Navigation {
+    const val version = "2.5.3"
+}
+
 object Kotlin {
     const val version = "1.7.20"
 }
