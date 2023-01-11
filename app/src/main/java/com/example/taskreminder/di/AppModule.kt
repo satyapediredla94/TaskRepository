@@ -28,8 +28,9 @@ object AppModule {
     @Provides
     @Singleton
     fun provideAlarmRepo(
-        alarmDb: AlarmDatabase
-    ): AlarmRepository = AlarmRepositoryImpl(alarmDb.alarmDao())
+        alarmDb: AlarmDatabase,
+        androidAlarmScheduler: AndroidAlarmScheduler
+    ): AlarmRepository = AlarmRepositoryImpl(alarmDb.alarmDao(), androidAlarmScheduler)
 
     @Provides
     @Singleton
