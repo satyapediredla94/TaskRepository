@@ -1,14 +1,23 @@
 package com.example.taskreminder.db
 
+import com.example.taskreminder.alarm.AndroidAlarmScheduler
 import com.example.taskreminder.data.AlarmItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AlarmRepositoryImpl @Inject constructor(
-    private val alarmDao: AlarmDao
+    private val alarmDao: AlarmDao,
+    private val androidAlarmScheduler: AndroidAlarmScheduler
 ) : AlarmRepository {
 
-    override suspend fun insertAlarmItem(alarmItem: AlarmItem) = alarmDao.insertAlarmItem(alarmItem)
+    override suspend fun insertAlarmItem(alarmItem: AlarmItem) {
+        alarmDao.insertAlarmItem(alarmItem)
+        if (alarmItem.active) {
+            androidAlarmScheduler.schedule(alarmItem)
+        } else {
+            androidAlarmScheduler.cancel(alarmItem)
+        }
+    }
 
     override suspend fun deleteAlarm(alarmItem: AlarmItem) = alarmDao.deleteAlarm(alarmItem)
 

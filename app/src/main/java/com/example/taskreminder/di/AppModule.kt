@@ -44,4 +44,11 @@ object AppModule {
         @ApplicationContext context: Context
     ): AlarmManager = context.getSystemService(AlarmManager::class.java)
 
+    @Provides
+    @Singleton
+    fun providesAndroidAlarmScheduler(
+        @ApplicationContext context: Context,
+        alarmManager: AlarmManager
+    ): AndroidAlarmScheduler = AndroidAlarmScheduler(context, alarmManager)
+
 }
