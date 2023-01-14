@@ -3,7 +3,6 @@ package com.example.taskreminder.db.typeConverters
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.example.taskreminder.data.RepeatInterval
-import java.lang.reflect.Type
 
 @ProvidedTypeConverter
 class IntervalTypeConverter(
@@ -11,12 +10,12 @@ class IntervalTypeConverter(
 ) {
 
     @TypeConverter
-    fun toIntervalJson(interval: RepeatInterval) : String {
+    fun toIntervalJson(interval: RepeatInterval): String {
         return jsonParser.toJson(interval, RepeatInterval::class.java) ?: ""
     }
 
     @TypeConverter
-    fun fromJsonToInterval(jsonString: String) : RepeatInterval? {
+    fun fromJsonToInterval(jsonString: String): RepeatInterval? {
         return jsonParser.fromJson<RepeatInterval>(jsonString, RepeatInterval::class.java)
     }
 

@@ -64,6 +64,8 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/proguard/androidx-annotations.pro"
+            excludes += "/META-INF/gradle/incremental.annotation.processors"
         }
     }
 }
@@ -82,6 +84,7 @@ dependencies {
     implementation(ComposeDeps.composeToolPreview)
     implementation(ComposeDeps.composeRunTime)
     implementation(ComposeDeps.composeCompiler)
+    implementation(ComposeDeps.composeLifecycle)
 
 
     testImplementation(Deps.junit)
@@ -97,7 +100,10 @@ dependencies {
     kapt(RoomDeps.roomCompiler)
 
     //Dagger Hilt
+    implementation(DaggerHilt.daggerHiltLegacy)
+    implementation(DaggerHilt.hiltCompilerLegacy)
     implementation(DaggerHilt.daggerHilt)
+    implementation(DaggerHilt.hiltCompose)
     kapt(DaggerHilt.hiltCompiler)
 
     //Navigation

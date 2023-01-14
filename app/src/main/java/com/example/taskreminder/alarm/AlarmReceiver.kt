@@ -4,10 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build.VERSION
+import android.util.Log
 import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.utils.goAsync
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,6 +22,7 @@ class AlarmReceiver : BroadcastReceiver() {
     lateinit var androidAlarmManager: AndroidAlarmManager
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Timber.e(intent?.action)
         if (isAfterReboot(intent)) {
             addAllAlarmsBack()
         } else {
@@ -53,6 +56,5 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun isAfterReboot(intent: Intent?) = intent?.action == Intent.ACTION_BOOT_COMPLETED
-
 
 }

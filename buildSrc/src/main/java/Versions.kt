@@ -34,6 +34,7 @@ object Compose {
     const val version = "1.3.2"
     const val activityCompose = "1.6.1"
     const val materialVersion = "1.3.1"
+    const val lifecycle = "2.5.1"
 }
 
 object Gradle {
@@ -50,6 +51,9 @@ object Room {
 
 object Hilt {
     const val version = "2.44"
+    const val androidXVersion = "1.0.0"
+    const val navigation = "1.0.0"
+    const val viewModel = "1.0.0-alpha03"
 }
 
 object LifeCycle {

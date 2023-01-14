@@ -33,6 +33,7 @@ object ComposeDeps {
     val composeMaterial by lazy { "androidx.compose.material:material:${Compose.materialVersion}" }
     val composeRunTime by lazy { "androidx.compose.runtime:runtime:${Compose.version}" }
     val composeCompiler by lazy { "androidx.compose.compiler:compiler:${Compose.version}" }
+    val composeLifecycle by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:${Compose.lifecycle}" }
 }
 
 object NavigationDeps {
@@ -52,6 +53,9 @@ object RoomDeps {
 }
 
 object DaggerHilt {
-    val daggerHilt by lazy { "com.google.dagger:hilt-android:${Hilt.version}" }
-    val hiltCompiler by lazy { "com.google.dagger:hilt-android-compiler:${Hilt.version}" }
+    val daggerHiltLegacy by lazy { "com.google.dagger:hilt-android:${Hilt.version}" }
+    val hiltCompilerLegacy by lazy { "com.google.dagger:hilt-android-compiler:${Hilt.version}" }
+    val daggerHilt by lazy { "androidx.hilt:hilt-common:${Hilt.androidXVersion}" }
+    val hiltCompiler by lazy { "androidx.hilt:hilt-compiler:${Hilt.androidXVersion}" }
+    val hiltCompose by lazy { "androidx.hilt:hilt-navigation-compose:${Hilt.navigation}" }
 }

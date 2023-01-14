@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.taskreminder.alarm.AndroidAlarmManager
 import com.example.taskreminder.alarm.AndroidAlarmScheduler
+import com.example.taskreminder.db.AlarmDao
 import com.example.taskreminder.db.AlarmDatabase
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.db.AlarmRepositoryImpl
@@ -27,13 +28,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAlarmRepo(
-        alarmDb: AlarmDatabase,
-        androidAlarmScheduler: AndroidAlarmScheduler
-    ): AlarmRepository = AlarmRepositoryImpl(alarmDb.alarmDao(), androidAlarmScheduler)
-
-    @Provides
-    @Singleton
     fun providesAlarmScheduler(
         alarmManager: AlarmManager,
         @ApplicationContext context: Context
@@ -41,15 +35,21 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesAndroidAlarmManager(
-        @ApplicationContext context: Context
-    ): AlarmManager = context.getSystemService(AlarmManager::class.java)
+    fun providesAlarmDao(
+        alarmDb: AlarmDatabase
+    ): AlarmDao = alarmDb.alarmDao()
 
     @Provides
     @Singleton
-    fun providesAndroidAlarmScheduler(
-        @ApplicationContext context: Context,
-        alarmManager: AlarmManager
-    ): AndroidAlarmScheduler = AndroidAlarmScheduler(context, alarmManager)
+    fun provideAlarmRepo(
+        alarmDao: AlarmDao,
+        androidAlarmScheduler: AndroidAlarmManager
+    ): AlarmRepository = AlarmRepositoryImpl(alarmDao, androidAlarmScheduler)
+
+    @Provides
+    @Singleton
+    fun providesAndroidAlarmManager(
+        @ApplicationContext context: Context
+    ): AlarmManager = context.getSystemService(AlarmManager::class.java)
 
 }
