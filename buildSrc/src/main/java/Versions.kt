@@ -26,10 +26,6 @@ object AndroidCore {
     const val jUnit = "4.12"
 }
 
-object Gson {
-    const val version = "2.9.0"
-}
-
 object Compose {
     const val version = "1.3.2"
     const val activityCompose = "1.6.1"
@@ -47,6 +43,10 @@ object Timber {
 
 object Room {
     const val version = "2.4.3"
+}
+
+object Gson {
+    const val version = "2.10.1"
 }
 
 object Hilt {

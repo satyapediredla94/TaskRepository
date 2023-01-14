@@ -1,22 +1,19 @@
 package com.example.taskreminder.db.typeConverters
 
-import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.example.taskreminder.data.RepeatInterval
+import com.google.gson.Gson
 
-@ProvidedTypeConverter
-class IntervalTypeConverter(
-    private val jsonParser: JsonParser
-) {
+class IntervalTypeConverter {
 
     @TypeConverter
     fun toIntervalJson(interval: RepeatInterval): String {
-        return jsonParser.toJson(interval, RepeatInterval::class.java) ?: ""
+        return Gson().toJson(interval, RepeatInterval::class.java) ?: ""
     }
 
     @TypeConverter
     fun fromJsonToInterval(jsonString: String): RepeatInterval? {
-        return jsonParser.fromJson<RepeatInterval>(jsonString, RepeatInterval::class.java)
+        return Gson().fromJson(jsonString, RepeatInterval::class.java)
     }
 
 }

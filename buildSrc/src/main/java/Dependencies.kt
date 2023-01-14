@@ -18,10 +18,6 @@ object Deps {
     val junit by lazy { "junit:junit:${AndroidCore.jUnit}" }
 }
 
-object GsonParser {
-    val gson by lazy { "com.squareup.retrofit2:converter-gson:${Gson.version}" }
-}
-
 object AndroidLifeCycle {
     val lifecycle by lazy { "androidx.lifecycle:lifecycle-runtime-ktx:${LifeCycle.runTime}" }
 }
@@ -58,4 +54,8 @@ object DaggerHilt {
     val daggerHilt by lazy { "androidx.hilt:hilt-common:${Hilt.androidXVersion}" }
     val hiltCompiler by lazy { "androidx.hilt:hilt-compiler:${Hilt.androidXVersion}" }
     val hiltCompose by lazy { "androidx.hilt:hilt-navigation-compose:${Hilt.navigation}" }
+}
+
+object GsonDeps {
+    val gsonVersion by lazy { "com.google.code.gson:gson:${Gson.version}" }
 }

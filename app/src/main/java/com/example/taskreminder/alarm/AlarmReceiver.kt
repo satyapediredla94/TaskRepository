@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build.VERSION
-import android.util.Log
 import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.utils.goAsync

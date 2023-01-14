@@ -106,11 +106,11 @@ dependencies {
     implementation(DaggerHilt.hiltCompose)
     kapt(DaggerHilt.hiltCompiler)
 
+    //Gson
+    implementation(GsonDeps.gsonVersion)
+
     //Navigation
     implementation(NavigationDeps.navigation)
-
-    //Gson
-    implementation(GsonParser.gson)
 
     //Timber
     implementation(Deps.timber)
