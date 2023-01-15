@@ -36,6 +36,15 @@ class MainViewModel @Inject constructor(
             AlarmListEvent.OnAddAlarmItemClick -> {
                 sendUiEvent(UIEvent.Navigate(Screens.AddEditAlarm().route))
             }
+            is AlarmListEvent.OnActiveStatusChanged -> {
+                viewModelScope.launch {
+                    alarmRepository.insertAlarmItem(
+                        event.alarmItem.copy(
+                            active = event.active
+                        )
+                    )
+                }
+            }
             is AlarmListEvent.OnDoneChanged -> {
                 viewModelScope.launch {
                     deletedAlarmItem = event.alarmItem

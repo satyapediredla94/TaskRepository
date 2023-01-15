@@ -48,7 +48,7 @@ class AddEditAlarmViewModel @Inject constructor(
                 viewModelScope.launch {
                     alarmRepository.getAlarmById(it).let { alarm ->
                         title = alarm.title
-                        message = alarm.message ?: ""
+                        message = alarm.message
                         time = alarm.repeat.intervalTime.toString()
                         timeInterval = alarm.repeat.interval
                         this@AddEditAlarmViewModel.alarmItem = alarm
@@ -74,10 +74,6 @@ class AddEditAlarmViewModel @Inject constructor(
                     sendUiEvent(UIEvent.ShowSnackBar("Title cannot be blank"))
                     return
                 }
-                if (message.isBlank()) {
-                    sendUiEvent(UIEvent.ShowSnackBar("Message cannot be blank"))
-                    return
-                }
                 if (time.isBlank()) {
                     sendUiEvent(UIEvent.ShowSnackBar("Time cannot be blank"))
                     return
@@ -87,7 +83,7 @@ class AddEditAlarmViewModel @Inject constructor(
                         AlarmItem(
                             title = title,
                             message = message,
-                            active = true,
+                            active = alarmItem?.active ?: true,
                             id = alarmItem?.id,
                             repeat = RepeatInterval(time.toInt(), timeInterval)
                         )

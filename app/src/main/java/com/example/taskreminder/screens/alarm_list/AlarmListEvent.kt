@@ -8,4 +8,5 @@ sealed class AlarmListEvent {
     object OnUndoDeleteClick : AlarmListEvent()
     data class OnAlarmItemClick(val alarmItem: AlarmItem) : AlarmListEvent()
     object OnAddAlarmItemClick: AlarmListEvent()
+    data class OnActiveStatusChanged(val alarmItem: AlarmItem, val active: Boolean) : AlarmListEvent()
 }

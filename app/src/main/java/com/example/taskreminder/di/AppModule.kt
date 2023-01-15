@@ -1,6 +1,8 @@
 package com.example.taskreminder.di
 
 import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import androidx.room.Room
 import com.example.taskreminder.alarm.AndroidAlarmManager
@@ -9,6 +11,7 @@ import com.example.taskreminder.db.AlarmDao
 import com.example.taskreminder.db.AlarmDatabase
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.db.AlarmRepositoryImpl
+import com.example.taskreminder.utils.NotificationConstants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,5 +54,25 @@ object AppModule {
     fun providesAndroidAlarmManager(
         @ApplicationContext context: Context
     ): AlarmManager = context.getSystemService(AlarmManager::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNotificationChannel(
+        @ApplicationContext context: Context
+    ): NotificationManager {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        val name = NotificationConstants.CHANNEL_NAME
+        val descriptionText = NotificationConstants.CHANNEL_DESC
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(NotificationConstants.CHANNEL_ID, name, importance).apply {
+            description = descriptionText
+        }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+        return notificationManager
+    }
 
 }

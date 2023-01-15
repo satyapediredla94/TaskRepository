@@ -73,6 +73,7 @@ android {
 dependencies {
 
     implementation(Deps.appCompat)
+    implementation(Deps.androidCore)
     implementation(Deps.materialDesign)
     implementation(Deps.constraintLayout)
     implementation(AndroidLifeCycle.lifecycle)

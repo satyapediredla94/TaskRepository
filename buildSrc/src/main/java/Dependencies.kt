@@ -11,6 +11,7 @@ object BuildPlugins {
  */
 object Deps {
     val appCompat by lazy { "androidx.appcompat:appcompat:${AndroidCore.appCompat}" }
+    val androidCore by lazy { "androidx.core:core-ktx:${AndroidCore.coreVersion}" }
     val timber by lazy { "com.jakewharton.timber:timber:${Timber.timber}" }
     val kotlin by lazy { "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Kotlin.version}" }
     val materialDesign by lazy { "com.google.android.material:material:${AndroidCore.materialVersion}" }

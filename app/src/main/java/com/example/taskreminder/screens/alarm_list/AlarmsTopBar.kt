@@ -13,19 +13,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.taskreminder.ui.theme.Shapes
 import com.example.taskreminder.ui.theme.TaskReminderTheme
+import com.example.taskreminder.viewmodel.MainViewModel
 
 
 @Composable
 fun TopBar(
-    onEvent: (AlarmListEvent) -> Unit,
-    navController: NavController = rememberNavController()
+    viewModel: MainViewModel = hiltViewModel(),
+    icon: ImageVector = Icons.Default.Add,
+    fromList: Boolean = true,
+    onPopBackStack: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -35,17 +40,23 @@ fun TopBar(
     ) {
         Text(
             modifier = Modifier.align(Alignment.CenterVertically),
-            text = "Alarm",
+            text = "Task Reminder",
             fontSize = 24.sp
         )
         IconButton(
-            onClick = { onEvent(AlarmListEvent.OnAddAlarmItemClick) },
+            onClick = {
+                if (fromList) {
+                    viewModel.onEvent(AlarmListEvent.OnAddAlarmItemClick)
+                } else {
+                    onPopBackStack()
+                }
+            },
             modifier = Modifier
                 .clip(Shapes.large)
                 .background(Color.Black)
         ) {
             Icon(
-                imageVector = Icons.Default.Add, contentDescription = "Add an Alarm",
+                imageVector = icon, contentDescription = "Add an Alarm",
                 tint = Color.White
             )
         }
@@ -58,7 +69,7 @@ private fun Preview() {
     TaskReminderTheme {
         Scaffold(content = {
             Box(modifier = Modifier.padding(it)) {
-                TopBar(onEvent = {})
+                TopBar {}
             }
         })
     }

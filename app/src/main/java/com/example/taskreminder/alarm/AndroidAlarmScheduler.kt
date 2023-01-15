@@ -35,7 +35,7 @@ class AndroidAlarmScheduler @Inject constructor(
             alarmItem.getTime(),
             PendingIntent.getBroadcast(
                 context,
-                alarmItem.hashCode(),
+                alarmItem.id ?: alarmItem.hashCode(),
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
@@ -53,7 +53,7 @@ class AndroidAlarmScheduler @Inject constructor(
         alarmManager.cancel(
             PendingIntent.getBroadcast(
                 context,
-                alarmItem.hashCode(),
+                alarmItem.id ?: alarmItem.hashCode(),
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )

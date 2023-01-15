@@ -48,7 +48,7 @@ fun MainAlarmsScreen(
         }
     }
     Column(modifier = Modifier.padding(16.dp)) {
-        TopBar(onEvent = viewModel::onEvent)
+        TopBar {}
         LazyColumn {
             items(alarms.value) {
                 AlarmItemComponent(alarmItem = it, onEvent = viewModel::onEvent)

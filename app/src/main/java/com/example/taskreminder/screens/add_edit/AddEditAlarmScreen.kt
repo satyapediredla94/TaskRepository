@@ -3,18 +3,16 @@ package com.example.taskreminder.screens.add_edit
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.taskreminder.R
+import com.example.taskreminder.screens.alarm_list.TopBar
 import com.example.taskreminder.utils.UIEvent
 
 @Composable
@@ -40,30 +38,15 @@ fun AddEditAlarmScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = {
-                Text(
-                    text = "Alarms",
-                    color = Color.White,
-                    fontFamily = FontFamily(
-                        listOf(Font(R.font.poppins_regular))
-                    )
-                )
-            },
-                backgroundColor = Color.Black,
-                navigationIcon = {
-                    IconButton(onClick = {
-                        onPopBackStack()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color.White
-                        )
-                    }
-                })
+            TopBar(
+                icon = Icons.Default.Close,
+                onPopBackStack = onPopBackStack,
+                fromList = false
+            )
         },
         scaffoldState = scaffoldState,
         modifier = Modifier
+            .padding(16.dp)
             .fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
@@ -90,7 +73,7 @@ fun AddEditAlarmScreen(
                 onValueChange = { title ->
                     viewModel.onEvent(AddEditAlarmEvent.OnTitleChange(title))
                 },
-                placeholder = {
+                label = {
                     Text(text = "Title")
                 },
                 modifier = Modifier
@@ -103,7 +86,7 @@ fun AddEditAlarmScreen(
                 onValueChange = { description ->
                     viewModel.onEvent(AddEditAlarmEvent.OnMessageChange(description))
                 },
-                placeholder = {
+                label = {
                     Text(text = "Message")
                 },
                 modifier = Modifier
