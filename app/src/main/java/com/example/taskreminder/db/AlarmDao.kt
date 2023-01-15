@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface AlarmDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAlarmItem(alarmItem: AlarmItem)
+    suspend fun insertAlarmItem(alarmItem: AlarmItem) : Long
 
     @Delete
     suspend fun deleteAlarm(alarmItem: AlarmItem)
@@ -21,5 +21,8 @@ interface AlarmDao {
 
     @Query("SELECT * FROM AlarmItem WHERE id=:id")
     suspend fun getAlarmById(id: Int): AlarmItem
+
+    @Query("DELETE FROM AlarmItem WHERE id=:id")
+    suspend fun deleteAlarmById(id: Int)
 
 }

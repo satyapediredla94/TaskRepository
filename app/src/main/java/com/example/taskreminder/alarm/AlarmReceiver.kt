@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build.VERSION
+import android.util.Log
 import com.example.taskreminder.data.AlarmItem
+import com.example.taskreminder.data.RepeatInterval
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.utils.goAsync
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +15,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlarmReceiver : BroadcastReceiver() {
+
+    companion object {
+        const val TAG = "AlarmReceiver"
+    }
 
     @Inject
     lateinit var alarmRepository: AlarmRepository
@@ -32,10 +38,19 @@ class AlarmReceiver : BroadcastReceiver() {
                 bundle?.getParcelable(AndroidAlarmScheduler.ALARM_ITEM)
             }
             val isSchedule = bundle?.getBoolean(AndroidAlarmScheduler.IS_SCHEDULE) ?: false
+            Log.e(TAG, "Receiver triggered: $isSchedule")
             goAsync {
                 alarmItem?.let {
                     if (isSchedule) {
-                        alarmRepository.insertAlarmItem(it.copy(active = true))
+                        alarmRepository.insertAlarmItem(
+                            it.copy(
+                                active = true,
+                                repeat = RepeatInterval(
+                                    it.repeat.intervalTime,
+                                    it.repeat.interval
+                                )
+                            )
+                        )
                     } else {
                         alarmRepository.insertAlarmItem(it.copy(active = false))
                     }

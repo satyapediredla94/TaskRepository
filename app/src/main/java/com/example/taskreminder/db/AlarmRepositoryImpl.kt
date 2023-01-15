@@ -11,7 +11,8 @@ class AlarmRepositoryImpl @Inject constructor(
 ) : AlarmRepository {
 
     override suspend fun insertAlarmItem(alarmItem: AlarmItem) {
-        alarmDao.insertAlarmItem(alarmItem)
+        val id = alarmDao.insertAlarmItem(alarmItem).toInt()
+        alarmItem.id = id
         if (alarmItem.active) {
             androidAlarmScheduler.schedule(alarmItem)
         } else {
@@ -26,5 +27,7 @@ class AlarmRepositoryImpl @Inject constructor(
     override fun getActiveAlarms() = alarmDao.getActiveAlarmItems()
 
     override suspend fun getAlarmById(id: Int) = alarmDao.getAlarmById(id)
+
+    override suspend fun deleteAlarmById(id: Int) = alarmDao.deleteAlarmById(id)
 
 }

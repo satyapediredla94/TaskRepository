@@ -33,6 +33,10 @@ object Compose {
     const val lifecycle = "2.5.1"
 }
 
+object Accompanist {
+    const val systemBarVersion = "0.27.0"
+}
+
 object Gradle {
     const val gradlePlugin = "7.3.1"
 }

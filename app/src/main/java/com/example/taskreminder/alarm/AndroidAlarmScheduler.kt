@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.example.taskreminder.data.AlarmItem
+import java.util.Calendar
 import javax.inject.Inject
 
 class AndroidAlarmScheduler @Inject constructor(
@@ -25,7 +26,7 @@ class AndroidAlarmScheduler @Inject constructor(
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             val bundle = Bundle().apply {
                 putParcelable(ALARM_ITEM, alarmItem)
-                putExtra(IS_SCHEDULE, true)
+                putBoolean(IS_SCHEDULE, true)
             }
             putExtra(ALARM_BUNDLE, bundle)
         }
@@ -45,7 +46,7 @@ class AndroidAlarmScheduler @Inject constructor(
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             val bundle = Bundle().apply {
                 putParcelable(ALARM_ITEM, alarmItem)
-                putExtra(IS_SCHEDULE, false)
+                putBoolean(IS_SCHEDULE, false)
             }
             putExtra(ALARM_BUNDLE, bundle)
         }

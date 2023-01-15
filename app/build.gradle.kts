@@ -115,4 +115,7 @@ dependencies {
     //Timber
     implementation(Deps.timber)
 
+    //Accompanist
+    implementation(AccompanistDependencies.statusBar)
+
 }

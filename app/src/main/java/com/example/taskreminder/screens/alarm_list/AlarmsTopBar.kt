@@ -1,4 +1,4 @@
-package com.example.taskreminder.screens
+package com.example.taskreminder.screens.alarm_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,6 +24,7 @@ import com.example.taskreminder.ui.theme.TaskReminderTheme
 
 @Composable
 fun TopBar(
+    onEvent: (AlarmListEvent) -> Unit,
     navController: NavController = rememberNavController()
 ) {
     Row(
@@ -38,7 +39,7 @@ fun TopBar(
             fontSize = 24.sp
         )
         IconButton(
-            onClick = { },
+            onClick = { onEvent(AlarmListEvent.OnAddAlarmItemClick) },
             modifier = Modifier
                 .clip(Shapes.large)
                 .background(Color.Black)
@@ -57,7 +58,7 @@ private fun Preview() {
     TaskReminderTheme {
         Scaffold(content = {
             Box(modifier = Modifier.padding(it)) {
-                TopBar()
+                TopBar(onEvent = {})
             }
         })
     }

@@ -32,6 +32,10 @@ object ComposeDeps {
     val composeLifecycle by lazy { "androidx.lifecycle:lifecycle-viewmodel-compose:${Compose.lifecycle}" }
 }
 
+object AccompanistDependencies {
+    val statusBar by lazy { "com.google.accompanist:accompanist-systemuicontroller:${Accompanist.systemBarVersion}" }
+}
+
 object NavigationDeps {
     val navigation by lazy { "androidx.navigation:navigation-compose:${Navigation.version}" }
 }

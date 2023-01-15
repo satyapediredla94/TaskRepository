@@ -1,5 +1,6 @@
-package com.example.taskreminder.screens
+package com.example.taskreminder.screens.alarm_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -18,12 +19,16 @@ import com.example.taskreminder.ui.theme.TaskReminderTheme
 @Composable
 fun AlarmItemComponent(
     alarmItem: AlarmItem,
+    onEvent: (AlarmListEvent) -> Unit,
     navController: NavController = rememberNavController()
 ) {
     Row(
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                onEvent(AlarmListEvent.OnAlarmItemClick(alarmItem))
+            },
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
@@ -58,7 +63,8 @@ private fun AlarmPreview() {
                         "Title",
                         "Sample Message",
                         RepeatInterval(2, Interval.HOUR)
-                    )
+                    ),
+                    onEvent = {}
                 )
             }
         })

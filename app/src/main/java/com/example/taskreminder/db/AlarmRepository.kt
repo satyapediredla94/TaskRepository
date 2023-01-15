@@ -9,4 +9,5 @@ interface AlarmRepository {
     fun getAlarmItems(): Flow<List<AlarmItem>>
     fun getActiveAlarms(): Flow<List<AlarmItem>>
     suspend fun getAlarmById(id: Int): AlarmItem
+    suspend fun deleteAlarmById(id: Int)
 }

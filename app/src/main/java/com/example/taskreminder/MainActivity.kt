@@ -11,10 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.taskreminder.screens.MainAlarmsScreen
+import androidx.navigation.navArgument
+import com.example.taskreminder.screens.add_edit.AddEditAlarmScreen
+import com.example.taskreminder.screens.alarm_list.MainAlarmsScreen
 import com.example.taskreminder.ui.theme.TaskReminderTheme
 import com.example.taskreminder.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +40,22 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screens.Home().route
                     ) {
                         composable(Screens.Home().route) {
-                            MainAlarmsScreen(emptyList())
+                            MainAlarmsScreen {
+                                navController.navigate(it.route)
+                            }
+                        }
+                        composable(
+                            Screens.AddEditAlarm().route + "?alarmId={alarmId}",
+                            arguments = listOf(
+                                navArgument(name = "alarmId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                }
+                            )
+                        ) {
+                            AddEditAlarmScreen(onPopBackStack = {
+                                navController.navigateUp()
+                            })
                         }
                     }
                 }
