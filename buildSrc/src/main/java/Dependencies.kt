@@ -41,6 +41,10 @@ object NavigationDeps {
     val navigation by lazy { "androidx.navigation:navigation-compose:${Navigation.version}" }
 }
 
+object Icons {
+    val icons by lazy { "androidx.compose.material:material-icons-extended:${Icon.version}" }
+}
+
 object TestingDeps {
     val jUnit by lazy { "androidx.test.ext:junit:${Testing.jUnit}" }
     val espresso by lazy { "androidx.test.espresso:espresso-core:${Testing.espresso}" }

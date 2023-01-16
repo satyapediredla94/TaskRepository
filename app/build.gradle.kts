@@ -107,6 +107,9 @@ dependencies {
     implementation(DaggerHilt.hiltCompose)
     kapt(DaggerHilt.hiltCompiler)
 
+    //Icons
+    implementation(Icons.icons)
+
     //Gson
     implementation(GsonDeps.gsonVersion)
 

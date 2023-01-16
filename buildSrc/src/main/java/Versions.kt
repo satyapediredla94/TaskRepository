@@ -18,6 +18,10 @@ object Kotlin {
     const val version = "1.7.20"
 }
 
+object Icon {
+    const val version = "1.3.1"
+}
+
 object AndroidCore {
     const val coreVersion = "1.9.0"
     const val materialVersion = "1.7.0"
