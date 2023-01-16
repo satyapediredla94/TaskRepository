@@ -1,12 +1,14 @@
 package com.example.taskreminder.screens.add_edit
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -97,6 +99,21 @@ fun AddEditAlarmScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             IntervalTimeComponent()
+            Spacer(modifier = Modifier.height(24.dp))
+            viewModel.alarmItem?.let {
+                Button(
+                    onClick = {
+                        viewModel.onEvent(AddEditAlarmEvent.OnAlarmDeleted)
+                        onPopBackStack()
+                    },
+                    shape = RoundedCornerShape(50),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black),
+                    modifier = Modifier.align(Alignment.End),
+                    contentPadding = PaddingValues(horizontal = 32.dp)
+                ) {
+                    Text(text = "Delete", color = Color.White)
+                }
+            }
         }
     }
 }

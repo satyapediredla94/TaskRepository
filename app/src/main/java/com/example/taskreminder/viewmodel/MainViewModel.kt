@@ -3,7 +3,6 @@ package com.example.taskreminder.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskreminder.Screens
-import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.screens.alarm_list.AlarmListEvent
 import com.example.taskreminder.utils.UIEvent
@@ -22,8 +21,6 @@ class MainViewModel @Inject constructor(
 
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
-
-    private var deletedAlarmItem: AlarmItem? = null
 
     fun onEvent(event: AlarmListEvent) {
         when (event) {
@@ -45,28 +42,11 @@ class MainViewModel @Inject constructor(
                     )
                 }
             }
-            is AlarmListEvent.OnDoneChanged -> {
-                viewModelScope.launch {
-                    deletedAlarmItem = event.alarmItem
-                    alarmRepository.insertAlarmItem(
-                        event.alarmItem.copy(
-                            active = event.active
-                        )
-                    )
-                }
-            }
             is AlarmListEvent.OnAlarmItemClick -> {
                 //Adding AlarmItem ID to get that AlarmItem based on ID
                 sendUiEvent(
                     UIEvent.Navigate(Screens.AddEditAlarm().route + "?alarmId=${event.alarmItem.id}")
                 )
-            }
-            AlarmListEvent.OnUndoDeleteClick -> {
-                deletedAlarmItem?.let {
-                    viewModelScope.launch {
-                        alarmRepository.insertAlarmItem(it)
-                    }
-                }
             }
         }
     }

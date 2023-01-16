@@ -3,7 +3,6 @@ package com.example.taskreminder
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -19,7 +18,6 @@ import androidx.navigation.navArgument
 import com.example.taskreminder.screens.add_edit.AddEditAlarmScreen
 import com.example.taskreminder.screens.alarm_list.MainAlarmsScreen
 import com.example.taskreminder.ui.theme.TaskReminderTheme
-import com.example.taskreminder.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val navController = rememberNavController()
-                    val viewModel: MainViewModel by viewModels()
                     NavHost(
                         navController = navController,
                         startDestination = Screens.Home().route

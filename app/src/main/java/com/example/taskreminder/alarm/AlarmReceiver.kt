@@ -5,9 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build.VERSION
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.graphics.drawable.IconCompat
 import com.example.taskreminder.R
 import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.data.RepeatInterval
@@ -21,10 +19,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AlarmReceiver : BroadcastReceiver() {
 
-    companion object {
-        const val TAG = "AlarmReceiver"
-    }
-
     @Inject
     lateinit var alarmRepository: AlarmRepository
 
@@ -34,6 +28,7 @@ class AlarmReceiver : BroadcastReceiver() {
     @Inject
     lateinit var notificationManager: NotificationManager
 
+    @Suppress("kotlin:S1874")
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.e(intent?.action)
         if (isAfterReboot(intent)) {
@@ -46,7 +41,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 bundle?.getParcelable(AndroidAlarmScheduler.ALARM_ITEM)
             }
             val isSchedule = bundle?.getBoolean(AndroidAlarmScheduler.IS_SCHEDULE) ?: false
-            Log.e(TAG, "Receiver triggered: $isSchedule")
+            Timber.e("Receiver triggered: $isSchedule")
             goAsync {
                 alarmItem?.let {
                     showNotification(context, it)

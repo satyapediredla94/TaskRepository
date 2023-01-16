@@ -20,7 +20,10 @@ class AlarmRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteAlarm(alarmItem: AlarmItem) = alarmDao.deleteAlarm(alarmItem)
+    override suspend fun deleteAlarm(alarmItem: AlarmItem) {
+        androidAlarmScheduler.cancel(alarmItem)
+        alarmDao.deleteAlarm(alarmItem)
+    }
 
     override fun getAlarmItems(): Flow<List<AlarmItem>> = alarmDao.getAlarmItems()
 
@@ -28,6 +31,9 @@ class AlarmRepositoryImpl @Inject constructor(
 
     override suspend fun getAlarmById(id: Int) = alarmDao.getAlarmById(id)
 
-    override suspend fun deleteAlarmById(id: Int) = alarmDao.deleteAlarmById(id)
+    override suspend fun deleteAlarmById(id: Int) {
+        androidAlarmScheduler.cancel(alarmDao.getAlarmById(id))
+        alarmDao.deleteAlarmById(id)
+    }
 
 }

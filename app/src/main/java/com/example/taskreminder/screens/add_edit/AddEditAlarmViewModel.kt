@@ -69,6 +69,13 @@ class AddEditAlarmViewModel @Inject constructor(
             is AddEditAlarmEvent.OnTimeIntervalChange -> {
                 timeInterval = event.timeInterval
             }
+            is AddEditAlarmEvent.OnAlarmDeleted -> {
+                alarmItem?.let {
+                    viewModelScope.launch {
+                        alarmRepository.deleteAlarm(it)
+                    }
+                }
+            }
             AddEditAlarmEvent.OnSaveClicked -> {
                 if (title.isBlank()) {
                     sendUiEvent(UIEvent.ShowSnackBar("Title cannot be blank"))
