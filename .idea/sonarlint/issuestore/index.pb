@@ -25,10 +25,6 @@ k
 ;app/src/main/java/com/example/taskreminder/utils/UIEvent.kt,2/f/2f3db1398ad32ffc91f7185810df399c64aeab6a
 i
 9app/src/main/java/com/example/taskreminder/db/AlarmDao.kt,5/d/5d3d7a8028cb175977ec40e149a27e1cec52a04d
-l
-<app/src/main/java/com/example/taskreminder/ui/theme/Color.kt,d/1/d1b00ab86f267db843f0b359db5ab6a7b761ed23
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 m
 =app/src/main/java/com/example/taskreminder/utils/Constants.kt,e/0/e00eba40053d4c754b13d8f0e6215c619443e7b7
 „
@@ -43,11 +39,7 @@ e
 5app/src/main/java/com/example/taskreminder/Screens.kt,9/7/97c418a62b04a559e81d95036feebc5de23bedaa
 
 Oapp/src/main/java/com/example/taskreminder/screens/alarm_list/AlarmListEvent.kt,f/c/fce7346724d95431506ddad12fffc16d571c0014
-€
-Papp/src/main/java/com/example/taskreminder/screens/alarm_list/AlarmListScreen.kt,d/0/d01e143629f866c39ffde23c427a64c2db71df46
 t
 Dapp/src/main/java/com/example/taskreminder/db/AlarmRepositoryImpl.kt,0/5/0582ba313b1cd6fd4df25f08f201a66f63199adc
-j
-:app/src/main/java/com/example/taskreminder/MainActivity.kt,4/5/457e7fb9c9ff42a1043d22e12baa4fe4bb5ff735
 u
 Eapp/src/main/java/com/example/taskreminder/viewmodel/MainViewModel.kt,2/4/2400df9798f74f3fc6a9112d31ab1a21d54844bb

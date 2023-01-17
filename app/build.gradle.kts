@@ -9,7 +9,7 @@ plugins {
 android {
     namespace = ConfigData.applicationId
     compileSdk = ConfigData.compileSdkVersion
-
+    buildToolsVersion = ConfigData.buildToolsVersion
     defaultConfig {
         applicationId = ConfigData.applicationId
         minSdk = ConfigData.minSdkVersion

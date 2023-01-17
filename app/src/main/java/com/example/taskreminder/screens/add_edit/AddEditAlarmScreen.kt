@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.taskreminder.screens.alarm_list.TopBar
 import com.example.taskreminder.utils.UIEvent
+import com.example.taskreminder.utils.formatTwo
 
 @Composable
 fun AddEditAlarmScreen(
@@ -29,8 +31,7 @@ fun AddEditAlarmScreen(
                 UIEvent.PopBackstack -> onPopBackStack()
                 is UIEvent.ShowSnackBar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
-                        event.message,
-                        event.action
+                        event.message, event.action
                     )
                 }
                 else -> Unit
@@ -38,14 +39,11 @@ fun AddEditAlarmScreen(
         }
     })
 
-    Scaffold(
-        topBar = {
-            TopBar(
-                icon = Icons.Default.Close,
-                onPopBackStack = onPopBackStack,
-                fromList = false
-            )
-        },
+    Scaffold(topBar = {
+        TopBar(
+            icon = Icons.Default.Close, onPopBackStack = onPopBackStack, fromList = false
+        )
+    },
         scaffoldState = scaffoldState,
         modifier = Modifier
             .padding(16.dp)
@@ -54,8 +52,7 @@ fun AddEditAlarmScreen(
             FloatingActionButton(
                 onClick = {
                     viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-                },
-                backgroundColor = Color.Black
+                }, backgroundColor = Color.Black
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
@@ -63,24 +60,19 @@ fun AddEditAlarmScreen(
                     tint = Color.White
                 )
             }
-        }
-    ) {
+        }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
         ) {
-            TextField(
-                value = viewModel.title,
-                onValueChange = { title ->
-                    viewModel.onEvent(AddEditAlarmEvent.OnTitleChange(title))
-                },
-                label = {
-                    Text(text = "Title")
-                },
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
+            TextField(value = viewModel.title, onValueChange = { title ->
+                viewModel.onEvent(AddEditAlarmEvent.OnTitleChange(title))
+            }, label = {
+                Text(text = "Title")
+            }, modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
@@ -99,6 +91,27 @@ fun AddEditAlarmScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             IntervalTimeComponent()
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    "Next Alarm: ", Modifier.padding(top = 12.dp), fontSize = 20.sp
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Row {
+                    Text(
+                        text = "${(viewModel.startHour).formatTwo()}:${(viewModel.startMinute).formatTwo()}",
+                        Modifier.padding(top = 12.dp),
+                        fontSize = 20.sp
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    ShowTimePicker()
+                }
+            }
             Spacer(modifier = Modifier.height(24.dp))
             viewModel.alarmItem?.let {
                 Button(

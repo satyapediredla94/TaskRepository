@@ -14,6 +14,7 @@ import com.example.taskreminder.utils.NotificationConstants.CHANNEL_ID
 import com.example.taskreminder.utils.goAsync
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,6 +46,8 @@ class AlarmReceiver : BroadcastReceiver() {
             goAsync {
                 alarmItem?.let {
                     showNotification(context, it)
+                    val startHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                    val startMinute = Calendar.getInstance().get(Calendar.MINUTE)
                     if (isSchedule) {
                         alarmRepository.insertAlarmItem(
                             it.copy(
@@ -52,7 +55,11 @@ class AlarmReceiver : BroadcastReceiver() {
                                 repeat = RepeatInterval(
                                     it.repeat.intervalTime,
                                     it.repeat.interval
-                                )
+                                ),
+                                startHour = startHour,
+                                startMinute = startMinute,
+                                startSeconds = Calendar.getInstance().get(Calendar.SECOND),
+                                isInitial = false
                             )
                         )
                     } else {
@@ -72,7 +79,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .build()
-            notificationManager.notify(alarmItem.hashCode(), notificationBuilder)
+            notificationManager.notify(alarmItem.id ?: alarmItem.hashCode(), notificationBuilder)
         }
     }
 

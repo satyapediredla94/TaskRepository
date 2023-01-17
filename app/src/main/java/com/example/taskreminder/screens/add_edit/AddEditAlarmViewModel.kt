@@ -35,6 +35,12 @@ class AddEditAlarmViewModel @Inject constructor(
     var time by mutableStateOf("")
         private set
 
+    var startHour by mutableStateOf(0)
+        private set
+
+    var startMinute by mutableStateOf(0)
+        private set
+
     var timeInterval by mutableStateOf(Interval.SECOND)
         private set
 
@@ -69,6 +75,10 @@ class AddEditAlarmViewModel @Inject constructor(
             is AddEditAlarmEvent.OnTimeIntervalChange -> {
                 timeInterval = event.timeInterval
             }
+            is AddEditAlarmEvent.OnStartTimeChanged -> {
+                startHour = event.startHour
+                startMinute = event.startMinute
+            }
             is AddEditAlarmEvent.OnAlarmDeleted -> {
                 alarmItem?.let {
                     viewModelScope.launch {
@@ -92,6 +102,9 @@ class AddEditAlarmViewModel @Inject constructor(
                             message = message,
                             active = alarmItem?.active ?: true,
                             id = alarmItem?.id,
+                            startHour = startHour,
+                            startMinute = startMinute,
+                            startSeconds = 0,
                             repeat = RepeatInterval(time.toInt(), timeInterval)
                         )
                     )

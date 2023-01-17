@@ -20,3 +20,5 @@ fun BroadcastReceiver.goAsync(
         }
     }
 }
+
+fun Int.formatTwo() = "%02d".format(this)
