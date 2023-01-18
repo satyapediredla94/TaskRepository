@@ -1,14 +1,15 @@
 package com.example.taskreminder.screens.alarm_list
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.SnackbarResult
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,10 +43,23 @@ fun MainAlarmsScreen(
     }
     Column(modifier = Modifier.padding(16.dp)) {
         TopBar {}
-        LazyColumn {
-            items(alarms.value) {
-                AlarmItemComponent(alarmItem = it, onEvent = viewModel::onEvent)
+        if (alarms.value.isNotEmpty()) {
+            LazyColumn {
+                items(alarms.value) {
+                    AlarmItemComponent(alarmItem = it, onEvent = viewModel::onEvent)
+                }
             }
+        }
+    }
+    if (alarms.value.isEmpty()) {
+        Row(modifier = Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center) {
+            Text(
+                text = "No Tasks Yet.",
+                modifier = Modifier
+                    .padding(16.dp)
+            )
         }
     }
 }
