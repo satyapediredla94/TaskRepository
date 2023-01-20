@@ -1,10 +1,14 @@
 package com.example.taskreminder.screens.alarm_list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAlarm
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.taskreminder.ui.theme.grey
 import com.example.taskreminder.utils.UIEvent
 import com.example.taskreminder.viewmodel.MainViewModel
 
@@ -52,9 +57,22 @@ fun MainAlarmsScreen(
         }
     }
     if (alarms.value.isEmpty()) {
-        Row(modifier = Modifier.fillMaxSize(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    viewModel.onEvent(AlarmListEvent.OnAddAlarmItemClick)
+                },
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Default.AddAlarm, contentDescription = "Add Task",
+                modifier = Modifier
+                    .height(80.dp)
+                    .width(80.dp),
+                tint = grey
+            )
             Text(
                 text = "No Tasks Yet.",
                 modifier = Modifier
