@@ -29,6 +29,7 @@ fun MainAlarmsScreen(
     val noOp: () -> Unit = {}
     val scaffoldState = rememberScaffoldState()
     val alarms = viewModel.alarms.collectAsState(initial = emptyList())
+    //This collects the events and observe only once
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
