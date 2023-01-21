@@ -1,4 +1,4 @@
-package com.example.taskreminder.screens.add_edit
+package com.example.taskreminder.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,6 +10,7 @@ import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.data.Interval
 import com.example.taskreminder.data.RepeatInterval
 import com.example.taskreminder.db.AlarmRepository
+import com.example.taskreminder.screens.add_edit.AddEditAlarmEvent
 import com.example.taskreminder.utils.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
