@@ -49,7 +49,7 @@ internal class MainViewModelTest {
         viewModel.onEvent(AlarmListEvent.OnAddAlarmItemClick)
         val uiEvent = viewModel.uiEvent.first()
         assertNotNull(uiEvent)
-        assertFalse(uiEvent is UIEvent.Navigate)
+        assertTrue(uiEvent is UIEvent.Navigate)
     }
 
     @Test
