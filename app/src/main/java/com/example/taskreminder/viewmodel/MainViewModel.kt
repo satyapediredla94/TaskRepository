@@ -2,8 +2,8 @@ package com.example.taskreminder.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskreminder.Screens
 import com.example.taskreminder.db.AlarmRepository
+import com.example.taskreminder.screens.Screens
 import com.example.taskreminder.screens.alarm_list.AlarmListEvent
 import com.example.taskreminder.utils.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

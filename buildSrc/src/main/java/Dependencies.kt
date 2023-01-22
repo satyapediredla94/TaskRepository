@@ -49,6 +49,8 @@ object TestingDeps {
     val jUnit by lazy { "androidx.test.ext:junit:${Testing.jUnit}" }
     val espresso by lazy { "androidx.test.espresso:espresso-core:${Testing.espresso}" }
     val junit4 by lazy { "androidx.compose.ui:ui-test-junit4:${Testing.junit4}" }
+    val coroutineTest by lazy { "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Testing.coroutine}" }
+    val archTest by lazy { "androidx.arch.core:core-testing:${Testing.archTestingVersion}" }
 }
 
 object RoomDeps {

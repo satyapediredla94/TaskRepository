@@ -1,4 +1,4 @@
-package com.example.taskreminder
+package com.example.taskreminder.screens
 
 import com.example.taskreminder.utils.ScreenConstants
 

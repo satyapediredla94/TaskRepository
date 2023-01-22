@@ -27,7 +27,7 @@ object AndroidCore {
     const val materialVersion = "1.7.0"
     const val appCompat = "1.5.1"
     const val constraintLayout = "2.1.4"
-    const val jUnit = "4.12"
+    const val jUnit = "4.13.2"
 }
 
 object Compose {
@@ -72,6 +72,8 @@ object Testing {
     const val jUnit = "1.1.4"
     const val espresso = "3.5.0"
     const val junit4 = "1.3.2"
+    const val coroutine = "1.3.2"
+    const val archTestingVersion = "2.1.0"
 }
 
 

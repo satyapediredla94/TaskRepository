@@ -89,11 +89,13 @@ dependencies {
 
 
     testImplementation(Deps.junit)
+    testImplementation(TestingDeps.coroutineTest)
+    testImplementation(TestingDeps.archTest)
     androidTestImplementation(TestingDeps.jUnit)
     androidTestImplementation(TestingDeps.espresso)
     androidTestImplementation(TestingDeps.junit4)
-    debugImplementation("androidx.compose.ui:ui-tooling:1.3.2")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.2")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.3.3")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.3")
 
     //Room Deps
     implementation(RoomDeps.roomRunTime)
