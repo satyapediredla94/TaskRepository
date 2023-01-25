@@ -6,14 +6,9 @@ import com.example.taskreminder.data.Interval
 import com.example.taskreminder.db.FakeRepository
 import com.example.taskreminder.screens.add_edit.AddEditAlarmEvent
 import com.example.taskreminder.utils.UIEvent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -30,13 +25,16 @@ internal class AddEditAlarmViewModelTest {
 
     private lateinit var viewModel: AddEditAlarmViewModel
     private lateinit var repository: FakeRepository
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private lateinit var testDispatcher: TestDispatcher
 
     @Before
     @ExperimentalCoroutinesApi
     fun setUp() {
         repository = FakeRepository()
         viewModel = AddEditAlarmViewModel(repository, SavedStateHandle())
-        Dispatchers.setMain(StandardTestDispatcher())
+        testDispatcher = StandardTestDispatcher()
+        Dispatchers.setMain(testDispatcher)
     }
 
     @After
@@ -102,8 +100,12 @@ internal class AddEditAlarmViewModelTest {
     @Test
     @ExperimentalCoroutinesApi
     fun `testing events to when time & title is not blank`() = runTest {
+        val uiEvent: UIEvent?
         viewModel.onEvent(AddEditAlarmEvent.OnTitleChange("Title 1"))
-        viewModel.onEvent(AddEditAlarmEvent.OnTimeChange("10"))
-        viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
+            viewModel.onEvent(AddEditAlarmEvent.OnTimeChange("10"))
+            viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
+            uiEvent = viewModel.uiEvent.first()
+            assertNotNull(uiEvent)
+            assertTrue(uiEvent is UIEvent.PopBackstack)
     }
 }
