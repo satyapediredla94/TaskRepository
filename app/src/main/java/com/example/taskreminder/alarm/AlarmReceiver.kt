@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.Ringtone
 import android.os.Build.VERSION
 import androidx.core.app.NotificationCompat
 import com.example.taskreminder.R
@@ -17,6 +18,7 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -28,6 +30,9 @@ class AlarmReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var notificationManager: NotificationManager
+
+    @Inject
+    lateinit var ringtone: Ringtone
 
     @Suppress("kotlin:S1874")
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -80,6 +85,15 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setAutoCancel(true)
                 .build()
             notificationManager.notify(alarmItem.id ?: alarmItem.hashCode(), notificationBuilder)
+            playRingtone()
+        }
+    }
+
+    private fun playRingtone() {
+        try {
+            ringtone.play()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

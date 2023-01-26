@@ -4,6 +4,8 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.media.Ringtone
+import android.media.RingtoneManager
 import androidx.room.Room
 import com.example.taskreminder.alarm.AndroidAlarmManager
 import com.example.taskreminder.alarm.AndroidAlarmScheduler
@@ -73,6 +75,18 @@ object AppModule {
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
         return notificationManager
+    }
+
+    @Provides
+    @Singleton
+    fun providesRingtoneManager(
+        @ApplicationContext context: Context
+    ): Ringtone {
+        val path = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        return RingtoneManager.getRingtone(
+            context,
+            path
+        )
     }
 
 }
