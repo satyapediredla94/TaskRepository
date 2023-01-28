@@ -6,6 +6,10 @@ object ScreenConstants {
     const val ADD_EDIT_ALARM_NAME = "Modify Alarm"
 }
 
+object ArgumentConstants {
+    const val ALARM_ID = "alarmId"
+}
+
 object NotificationConstants {
     const val CHANNEL_ID = "reminder_channel"
     const val CHANNEL_NAME = "reminder_channel_name"

@@ -2,9 +2,12 @@ package com.example.taskreminder.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
+import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.data.Interval
 import com.example.taskreminder.db.FakeRepository
+import com.example.taskreminder.db.MockAlarmItem
 import com.example.taskreminder.screens.add_edit.AddEditAlarmEvent
+import com.example.taskreminder.utils.ArgumentConstants
 import com.example.taskreminder.utils.UIEvent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.first
@@ -25,6 +28,7 @@ internal class AddEditAlarmViewModelTest {
 
     private lateinit var viewModel: AddEditAlarmViewModel
     private lateinit var repository: FakeRepository
+
     @OptIn(ExperimentalCoroutinesApi::class)
     private lateinit var testDispatcher: TestDispatcher
 
@@ -71,7 +75,7 @@ internal class AddEditAlarmViewModelTest {
     fun `testing events to when title is blank`() = runTest {
         viewModel.onEvent(AddEditAlarmEvent.OnTitleChange(""))
         viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-       val uiEvent = viewModel.uiEvent.first()
+        val uiEvent = viewModel.uiEvent.first()
         assertNotNull(uiEvent)
         assertTrue(uiEvent is UIEvent.ShowSnackBar)
     }
@@ -81,7 +85,7 @@ internal class AddEditAlarmViewModelTest {
     fun `testing events to when message is blank`() = runTest {
         viewModel.onEvent(AddEditAlarmEvent.OnMessageChange(""))
         viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-       val uiEvent = viewModel.uiEvent.first()
+        val uiEvent = viewModel.uiEvent.first()
         assertNotNull(uiEvent)
         assertTrue(uiEvent is UIEvent.ShowSnackBar)
     }
@@ -92,7 +96,7 @@ internal class AddEditAlarmViewModelTest {
         viewModel.onEvent(AddEditAlarmEvent.OnTitleChange("Title 1"))
         viewModel.onEvent(AddEditAlarmEvent.OnTimeChange(""))
         viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-       val uiEvent = viewModel.uiEvent.first()
+        val uiEvent = viewModel.uiEvent.first()
         assertNotNull(uiEvent)
         assertTrue(uiEvent is UIEvent.ShowSnackBar)
     }
@@ -102,10 +106,42 @@ internal class AddEditAlarmViewModelTest {
     fun `testing events to when time & title is not blank`() = runTest {
         val uiEvent: UIEvent?
         viewModel.onEvent(AddEditAlarmEvent.OnTitleChange("Title 1"))
-            viewModel.onEvent(AddEditAlarmEvent.OnTimeChange("10"))
-            viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-            uiEvent = viewModel.uiEvent.first()
-            assertNotNull(uiEvent)
-            assertTrue(uiEvent is UIEvent.PopBackstack)
+        viewModel.onEvent(AddEditAlarmEvent.OnTimeChange("10"))
+        viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
+        uiEvent = viewModel.uiEvent.first()
+        assertNotNull(uiEvent)
+        assertTrue(uiEvent is UIEvent.PopBackstack)
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `testing saved state handle when alarm is not negative 1`() = runTest {
+        var alarmItem: AlarmItem?
+        val savedState = SavedStateHandle()
+        savedState[ArgumentConstants.ALARM_ID] = 1
+        repository.insertAlarmItem(MockAlarmItem.activeInitialAlarm)
+        viewModel = AddEditAlarmViewModel(repository, savedState)
+        delay(1000)
+        runBlocking {
+            alarmItem = viewModel.alarmItem
+            assertNotNull(alarmItem)
+            assertEquals(alarmItem?.id, 1)
+        }
+    }
+
+    @Test
+    @ExperimentalCoroutinesApi
+    fun `testing delete alarm`() = runTest {
+        val savedState = SavedStateHandle()
+        savedState[ArgumentConstants.ALARM_ID] = 1
+        repository.insertAlarmItem(MockAlarmItem.activeInitialAlarm)
+        viewModel = AddEditAlarmViewModel(repository, savedState)
+        delay(1000)
+        val alarmItem = viewModel.alarmItem
+        assertNotNull(alarmItem)
+        assertEquals(alarmItem?.id, 1)
+        viewModel.onEvent(AddEditAlarmEvent.OnAlarmDeleted)
+        delay(1000)
+        assertTrue(repository.getAlarmItems().first().isEmpty())
     }
 }

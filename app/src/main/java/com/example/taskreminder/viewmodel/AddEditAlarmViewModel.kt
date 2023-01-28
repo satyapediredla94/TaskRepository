@@ -11,6 +11,7 @@ import com.example.taskreminder.data.Interval
 import com.example.taskreminder.data.RepeatInterval
 import com.example.taskreminder.db.AlarmRepository
 import com.example.taskreminder.screens.add_edit.AddEditAlarmEvent
+import com.example.taskreminder.utils.ArgumentConstants
 import com.example.taskreminder.utils.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -49,7 +50,7 @@ class AddEditAlarmViewModel @Inject constructor(
     val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
-        val alarmId = savedStateHandle.get<Int>("alarmId")
+        val alarmId = savedStateHandle.get<Int>(ArgumentConstants.ALARM_ID)
         alarmId?.let {
             if (alarmId != -1) {
                 viewModelScope.launch {

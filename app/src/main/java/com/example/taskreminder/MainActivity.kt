@@ -27,6 +27,7 @@ import com.example.taskreminder.screens.ShowDialog
 import com.example.taskreminder.screens.add_edit.AddEditAlarmScreen
 import com.example.taskreminder.screens.alarm_list.MainAlarmsScreen
 import com.example.taskreminder.ui.theme.TaskReminderTheme
+import com.example.taskreminder.utils.ArgumentConstants
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -65,9 +66,9 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                         composable(
-                            Screens.AddEditAlarm().route + "?alarmId={alarmId}",
+                            Screens.AddEditAlarm().route + "?${ArgumentConstants.ALARM_ID}={alarmId}",
                             arguments = listOf(
-                                navArgument(name = "alarmId") {
+                                navArgument(name = ArgumentConstants.ALARM_ID) {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 }
