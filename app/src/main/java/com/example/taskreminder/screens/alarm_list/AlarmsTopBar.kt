@@ -18,8 +18,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.taskreminder.ui.theme.Shapes
 import com.example.taskreminder.ui.theme.TaskReminderTheme
 import com.example.taskreminder.viewmodel.MainViewModel
@@ -30,6 +28,7 @@ fun TopBar(
     viewModel: MainViewModel = hiltViewModel(),
     icon: ImageVector = Icons.Default.Add,
     fromList: Boolean = true,
+    showTopFAB: Boolean = true,
     onPopBackStack: () -> Unit
 ) {
     Row(
@@ -43,22 +42,24 @@ fun TopBar(
             text = "Task Reminder",
             fontSize = 24.sp
         )
-        IconButton(
-            onClick = {
-                if (fromList) {
-                    viewModel.onEvent(AlarmListEvent.OnAddAlarmItemClick)
-                } else {
-                    onPopBackStack()
-                }
-            },
-            modifier = Modifier
-                .clip(Shapes.large)
-                .background(Color.Black)
-        ) {
-            Icon(
-                imageVector = icon, contentDescription = "Add an Alarm",
-                tint = Color.White
-            )
+        if (showTopFAB) {
+            IconButton(
+                onClick = {
+                    if (fromList) {
+                        viewModel.onEvent(AlarmListEvent.OnAddAlarmItemClick)
+                    } else {
+                        onPopBackStack()
+                    }
+                },
+                modifier = Modifier
+                    .clip(Shapes.large)
+                    .background(Color.Black)
+            ) {
+                Icon(
+                    imageVector = icon, contentDescription = "Add an Alarm",
+                    tint = Color.White
+                )
+            }
         }
     }
 }

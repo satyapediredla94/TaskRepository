@@ -1,6 +1,8 @@
 package com.example.taskreminder.alarm
 
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,6 +10,7 @@ import android.media.Ringtone
 import android.os.Build.VERSION
 import androidx.core.app.NotificationCompat
 import com.example.taskreminder.R
+import com.example.taskreminder.ResultActivity
 import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.data.RepeatInterval
 import com.example.taskreminder.db.AlarmRepository
@@ -77,7 +80,20 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private fun showNotification(context: Context?, alarmItem: AlarmItem) {
         context?.let {
+            // Create an Intent for the activity you want to start
+            val resultIntent = Intent(it, ResultActivity::class.java)
+            // Create the TaskStackBuilder
+            val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+                // Add the intent, which inflates the back stack
+                addNextIntentWithParentStack(resultIntent)
+                // Get the PendingIntent containing the entire back stack
+                getPendingIntent(
+                    0,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            }
             val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setContentIntent(resultPendingIntent)
                 .setContentTitle(alarmItem.title)
                 .setContentText(alarmItem.message)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
