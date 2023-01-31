@@ -26,3 +26,5 @@ jobs:
         run: ./gradlew build
       - name: Run Test Cases with Gradle
         run: ./gradlew test
+      - name: Run Coverage
+        run: ./gradlew createDebugUnitTestCoverageReport

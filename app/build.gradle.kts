@@ -4,6 +4,11 @@ plugins {
     kotlin("kapt")
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
+    id("jacoco")
+}
+
+jacoco {
+    version = "0.8.8"
 }
 
 android {
@@ -35,6 +40,7 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
+            enableUnitTestCoverage = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
