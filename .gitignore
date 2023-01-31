@@ -10,7 +10,12 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
+/build/.tranforms
+/build/generated
+/build/intermediates
+/build/kotlin
+/build/outputs
+/build/tmp
 /buildSrc/build
 /captures
 .externalNativeBuild
