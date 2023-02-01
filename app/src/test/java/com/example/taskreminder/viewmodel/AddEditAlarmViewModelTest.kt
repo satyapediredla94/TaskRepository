@@ -2,6 +2,7 @@ package com.example.taskreminder.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.example.taskreminder.data.AlarmItem
 import com.example.taskreminder.data.Interval
 import com.example.taskreminder.db.FakeRepository
@@ -104,13 +105,17 @@ internal class AddEditAlarmViewModelTest {
     @Test
     @ExperimentalCoroutinesApi
     fun `testing events to when time & title is not blank`() = runTest {
-        val uiEvent: UIEvent?
+        val uiEvent = mutableListOf<UIEvent>()
         viewModel.onEvent(AddEditAlarmEvent.OnTitleChange("Title 1"))
         viewModel.onEvent(AddEditAlarmEvent.OnTimeChange("10"))
         viewModel.onEvent(AddEditAlarmEvent.OnSaveClicked)
-        uiEvent = viewModel.uiEvent.first()
-        assertNotNull(uiEvent)
-        assertTrue(uiEvent is UIEvent.PopBackstack)
+        viewModel.viewModelScope.launch {
+            viewModel.uiEvent.collect { value ->
+                uiEvent.add(value)
+            }
+            assertTrue(uiEvent.isNotEmpty())
+            assertTrue(uiEvent[0] is UIEvent.PopBackstack)
+        }
     }
 
     @Test
